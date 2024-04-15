@@ -10,7 +10,7 @@ Findings
 Process for optimizing
 ----------------------
 - use GSAT; anything else I tried gave inconsistent results and muddy data
-- 
+- TODO document this.
 
 
 
@@ -51,6 +51,18 @@ For example, I found:
 Your frequency/board might prefer the opposite, so make sure to test both.
 
 
+Interesting quotes
+------------------
+
+
+
+
+Recommended tools
+-----------------
+
+- [GSAT](https://github.com/stressapptest/stressapptest)
+- TestMem5 (TM5) with [these configs](https://github.com/integralfx/MemTestHelper/tree/oc-guide/TM5-Configs)
+- [y-cruncher](http://www.numberworld.org/y-cruncher/), especially the VST and VT3 stress tests
 
 
 
