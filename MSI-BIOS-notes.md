@@ -7,6 +7,9 @@ Tips and tricks for MSI's BIOS
 - Also, under F3, you can set things up to start at your preferred favorites page each time you enter the BIOS!
 - You can force the BIOS to do a full poweroff reboot by quickly pressing F9 and then F8 to save your settings, then load them immediately. Anytime a profile is loaded this way, the BIOS will do a full cold start, rather than a soft reboot.
 - During RAM OC you can put the RTLs and IOLs in your favorites menu to show their trained values right away after POSTing
+- The Memory Fast Boot option is important during RAM overclocking
+  - Set Fast Boot to Disabled to force the board to **initialize and train** memory anew on every POST. This is what you want during RAM OC
+  - Set Fast Boot to Slow Training to force the board to **train** memory anew on every POST. However, memory initialization is skipped when possible.
 - 
 
 Fixing when MOBO gets stuck during POST but keeps trying forever
