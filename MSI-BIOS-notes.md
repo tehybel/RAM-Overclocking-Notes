@@ -22,4 +22,5 @@ Bugs and workarounds
 - If your BIOS freezes or gets stuck when you are about to save your settings and reboot, disable Intel Turbo Boost Max Technology 3.0, which can be found under Advanced CPU Configuration in the OC menu.
 - You cannot trust the search feature, as it does not look inside all sub-menus. For example, there is a feature called CPU VRM Over Temperature Protection under the DigitALL Power menu. Searching for VRM, however, gives zero results!
 - If you cannot POST with a high System Agent Voltage (VCCSA) then try setting CPU Over Temperature Protection to a higher value, or to Auto. At 96C, I cannot POST above 1.17v VCCSA.
+- Setting the Intel Adaptive Thermal Monitor to disabled might cause your system to no longer POST
 - 
