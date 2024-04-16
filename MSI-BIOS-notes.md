@@ -9,7 +9,7 @@ Tips and tricks for MSI's BIOS
 - During RAM OC you can put the RTLs and IOLs in your favorites menu to show their trained values right away after POSTing
 - The Memory Fast Boot option is important during RAM overclocking
   - Set Fast Boot to Disabled to force the board to **initialize and train** memory anew on every POST. This is what you want during RAM OC
-  - Set Fast Boot to Slow Training to force the board to **train** memory anew on every POST. However, memory initialization is skipped when possible.
+  - Set Fast Boot to Slow Training to force the board to **train** memory anew on every POST. However, memory initialization is skipped when possible. Source: [MSI manual](https://download.msi.com/archive/mnu_exe/mb/Intel500BIOS.pdf)
 - 
 
 Fixing when MOBO gets stuck during POST but keeps trying forever
