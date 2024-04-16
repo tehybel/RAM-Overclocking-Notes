@@ -6,6 +6,10 @@ Findings
 - ODT skews depend on other variables: I've personally observed IO and RAM voltage, and frequency. Therefore, fix these *before* optimizing ODT skews.
 - 
 
+Misc tips and tricks
+------------------
+- You can time how long memory training takes with a stopwatch
+- 
 
 Process for optimizing
 ----------------------
