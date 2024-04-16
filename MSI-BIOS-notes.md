@@ -30,3 +30,4 @@ Bugs and workarounds
 - Setting the Intel Adaptive Thermal Monitor to disabled might cause your system to no longer POST
 - TODO document ring throttling
 - Loading an overclocking profile from a USB drive may bug out in the selection menu if there are too many files in the same folder. As a workaround, move your old MsOcFiles into a sub-directory in your USB drive.
+- If your system POSTs fine the first time, but hangs as soon as you try to reboot it with the top EZ debug LED lit, then try lowering VCCSA. Above 1.17v my system will only POST once.
