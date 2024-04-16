@@ -5,6 +5,16 @@ Tips and tricks for MSI's BIOS
 - You can press left/right to quickly jump downwards one category at a time
 - The favorites feature is amazing for RAM OC. Press F2 anywhere to favorite a setting. Press F3 to enter favorites.
 - Also, under F3, you can set things up to start at your preferred favorites page each time you enter the BIOS!
+- You can force the BIOS to do a full poweroff reboot by quickly pressing F9 and then F8 to save your settings, then load them immediately. Anytime a profile is loaded this way, the BIOS will do a full cold start, rather than a soft reboot.
+
+Fixing when MOBO gets stuck during POST but keeps trying forever
+-------------------------
+- Sometimes during RAM OCing, your board gets stuck in the training process -- it tries to train repeatedly but gets stuck after perhaps 10 seconds, requiring a hard poweroff. The board has then 'forgotten' that this happened on the next boot and will try training again forever. In this situation you cannot get into the BIOS anymore. You would then normally use JBAT1 to reset the BIOS settings. However, there's an alternative way to get out of this looping that will keep your settings.
+  - start with your PC powered fully off, then hit the power button
+  - when the power button light comes on, count out loud, "one mississippi, two mississippi". Sounds silly, but it gets the timing right.
+  - as soon as you are done counting, start holding down the power button until your machine shuts off fully
+  - repeat the above steps one more time, then boot normally. You should get to the Overclock Failed! menu and be able to restore your settings from there.
+  - this process works because it lets the POST process get to a point where the board knows it's tried booting, but hasn't gotten stuck yet. When this happens a few times, the motherboard will reset itself. 
 - 
 
 Bugs and workarounds
