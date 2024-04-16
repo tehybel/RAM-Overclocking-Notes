@@ -4,7 +4,7 @@ Findings
 --------
 - Setting ODT skews (Wr, Nom, Park) correctly *massively* impacts how far you can take your OC
 - ODT skews depend on other variables: I've personally observed IO and RAM voltage, and frequency. Therefore, fix these *before* optimizing ODT skews.
-- 
+- The Memory Try It! feature changes various settings behind the scenes, for example enabling or disabling some training algorithms that are set to Auto. Therefore it's worth testing different values of this feature, even if you override all the timings it sets for you.
 
 Misc tips and tricks
 ------------------
