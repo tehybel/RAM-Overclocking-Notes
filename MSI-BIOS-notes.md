@@ -3,9 +3,11 @@ Tips and tricks for MSI's BIOS
 - To find out the range of numbers a setting supports, you can put 99999 in and press enter. The BIOS will change the value to the highest supported right away.
 - You can press the + and - keys to increase and decrease values by one. This also lets you find the lowest possible value, by holding down minus.
 - You can press left/right to quickly jump downwards one category at a time
-- The favorites feature is amazing for RAM OC. Press F2 anywhere to favorite a setting. Press F3 to enter favorites.
+- The favorites feature is very handy and worth setting up. Press F2 anywhere to favorite a setting. Press F3 to enter favorites.
 - Also, under F3, you can set things up to start at your preferred favorites page each time you enter the BIOS!
 - You can force the BIOS to do a full poweroff reboot by quickly pressing F9 and then F8 to save your settings, then load them immediately. Anytime a profile is loaded this way, the BIOS will do a full cold start, rather than a soft reboot.
+- During RAM OC you can put the RTLs and IOLs in your favorites menu to show their trained values right away after POSTing
+- 
 
 Fixing when MOBO gets stuck during POST but keeps trying forever
 -------------------------
