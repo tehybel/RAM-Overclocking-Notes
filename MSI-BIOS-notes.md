@@ -28,4 +28,5 @@ Bugs and workarounds
 - You cannot trust the search feature, as it does not look inside all sub-menus. For example, there is a feature called CPU VRM Over Temperature Protection under the DigitALL Power menu. Searching for VRM, however, gives zero results!
 - If you cannot POST with a high System Agent Voltage (VCCSA) then try setting CPU Over Temperature Protection to a higher value, or to Auto. At 96C, I cannot POST above 1.17v VCCSA.
 - Setting the Intel Adaptive Thermal Monitor to disabled might cause your system to no longer POST
-- 
+- TODO document ring throttling
+- Loading an overclocking profile from a USB drive may bug out in the selection menu if there are too many files in the same folder. As a workaround, move your old MsOcFiles into a sub-directory in your USB drive.
