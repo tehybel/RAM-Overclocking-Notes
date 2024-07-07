@@ -1,26 +1,35 @@
 
 
-Findings
---------
-- Setting ODT skews (Wr, Nom, Park) correctly *massively* impacts how far you can take your OC
-- ODT skews depend on other variables: I've personally observed IO and RAM voltage, and frequency. Therefore, fix these *before* optimizing ODT skews.
-- The Memory Try It! feature changes various settings behind the scenes, for example enabling or disabling some training algorithms that are set to Auto. Therefore it's worth testing different values of this feature, even if you override all the timings it sets for you.
+
+About ODT RTTs
+--------------
+- Setting ODT RTTs (Wr, Nom, Park) correctly will *massively* impact how far you can take your OC
+- These can be found under the Skews menu in the Asus BIOS, and are also known as ODT Skews.
+- Optimal ODT skews can vary depending on other variables
+  - IO voltage, RAM voltage, frequency, and CAS latency affect optimal ODTs. There are likely more variables too.
+- You can leave your RTLs and IOLs on Auto training. If they fail to train well, it's usually because your 
+- Wr is usually fixed at 80. At very high frequencies (4500+) it can sometimes be better at 120.
+- Asus and MSI use a different order for these, making it easy to get confused!
+  - Asus uses the order Wr-Park-Nom
+  - MSI uses the order Wr-Nom-Park
+- In online discussions, we are better off using explicit, unambiguous notation
+  - for example, write: wr=80, park=0, nom=60. This is clearer than writing 80-0-60.
+- 
+
 
 Misc tips and tricks
 ------------------
-- You can time how long memory training takes with a stopwatch
+- You can time how long memory training takes with a stopwatch and use it to gauge which settings are best
 - 
 
 Process for optimizing
 ----------------------
 - use GSAT; anything else I tried gave inconsistent results and muddy data
+- you will need to temporarily cause instability. The means for doing this is crucial.
+- always test inter-run variance before optimizing!
 - TODO document this.
 
 
-
-About internet content
-----------------------
-TODO: write about trusted sources only, give some usernames?
 
 
 DLL Bandwidth setting
@@ -56,8 +65,16 @@ For example, I found:
 Your frequency/board might prefer the opposite, so make sure to test both.
 
 
+
+About internet content
+----------------------
+TODO: write about trusted sources only, give some usernames?
+
+
+
 People confirmed to know what they're doing
 -------------------------------------------
+- OLDFATSHEEP
 - 7empe
 - Falkentyne
 - Ichirou
@@ -66,14 +83,17 @@ People confirmed to know what they're doing
 
 To decide who to listen to, check that their claims are backed up by results. Find a screenshot of their best memory overclock. If they have achieved outstanding results, their words deserve attention.
 
-The better you get, the easier it will be to see through misinformation and vet people.
+The better you get, the easier it will be to tell who is (often accidentally) sharing misinformation.
 
 
 
 Interesting quotes
 ------------------
 
->  Restart causes post error 55. To avoid it I need to set Maximus Tweak Mode to 1 (from 2) and avoid fixing tRDRD_sg_training, tRDRD_sg_runtime, tRDRD_dg_training, tRDRD_dg_training. These have to be on auto, even with having the same 7 - 4 values after training. Setting them to fixed 7 - 4 gives me always post code 55 no matter how ridiculous VCCSA I would apply -- 7empe
+> [warm restart] causes post error 55. To avoid it I need to set Maximus Tweak Mode to 1 (from 2) and avoid fixing tRDRD_sg_training, tRDRD_sg_runtime, tRDRD_dg_training, tRDRD_dg_training. These have to be on auto, even with having the same 7 - 4 values after training. Setting them to fixed 7 - 4 gives me always post code 55 no matter how ridiculous VCCSA I would apply -- 7empe
+
+
+
 
 
 
@@ -90,4 +110,12 @@ Recommended tools
 Useful links
 ------------
 https://www.overclock.net/threads/the-importance-of-skew-control-for-memory-overclocking.1774358/post-28662268
+
+
+Misc Findings
+--------
+- The MSI Memory Try It! feature changes various settings behind the scenes, for example enabling or disabling some training algorithms that are set to Auto. Therefore it's worth testing different values of this feature, even if you override all the timings it sets for you.
+
+
+
 
