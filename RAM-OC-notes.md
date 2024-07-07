@@ -7,7 +7,7 @@ About ODT RTTs
 - These can be found under the Skews menu in the Asus BIOS, and are also known as ODT Skews.
 - Optimal ODT skews can vary depending on other variables
   - IO voltage, RAM voltage, frequency, and CAS latency affect optimal ODTs. There are likely more variables too.
-- You can leave your RTLs and IOLs on Auto training. If they fail to train well, it's usually because your 
+- when your RTLs and IOLs fail to train well on auto, it's usually because your ODTs are wrong (or you set a timing too tight) 
 - Wr is usually fixed at 80. At very high frequencies (4500+) it can sometimes be better at 120.
 - Asus and MSI use a different order for these, making it easy to get confused!
   - Asus uses the order Wr-Park-Nom
