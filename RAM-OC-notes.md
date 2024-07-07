@@ -25,7 +25,8 @@ TODO: write about trusted sources only, give some usernames?
 
 DLL Bandwidth setting
 ---------------------
-I found these values:
+
+On MSI z490, I found these values:
 
   Setting | Data
   | ------------ | --- |
@@ -35,7 +36,7 @@ I found these values:
   BW 3           | (way more errors than BW2, found in a previous test)
   auto           | 312.00s 49129.21MB/s, with 11 hardware incidents,
 
-I've retried the experiment thrice now, to be sure. It seems that setting DLL BW to 'auto' simply performs better than any of the manually set options! 
+I've retried the experiment thrice to be sure: setting DLL BW to 'auto' simply performs better than any of the manually set options! 
 
 Perhaps on auto, the board uses some mechanism to find a precisely tuned bandwidth, whereas 0/1/2/.../7 just correspond to specific frequencies that are spaced far apart? 
 
@@ -49,14 +50,30 @@ For example, I found:
 
   Early | Late | Data
   | ------------ | --- | --- |
-  Early command training  ENABLED | Late command training DISABLED        | 312.00s 49129.21MB/s, with 11 hardware incidents
-  Early command training DISABLED | Late command training  ENABLED        | 602.00s 49303.27MB/s, with 13 hardware incidents
+  Enabled | Disabled        | 312.00s 49129.21MB/s, with 11 hardware incidents
+  Disabled | Enabled        | 602.00s 49303.27MB/s, with 13 hardware incidents
 
 Your frequency/board might prefer the opposite, so make sure to test both.
 
 
+People confirmed to know what they're doing
+-------------------------------------------
+- 7empe
+- Falkentyne
+- Ichirou
+- PhoenixMDA
+- TODO add more
+
+To decide who to listen to, check that their claims are backed up by results. Find a screenshot of their best memory overclock. If they have achieved outstanding results, their words deserve attention.
+
+The better you get, the easier it will be to see through misinformation and vet people.
+
+
+
 Interesting quotes
 ------------------
+
+>  Restart causes post error 55. To avoid it I need to set Maximus Tweak Mode to 1 (from 2) and avoid fixing tRDRD_sg_training, tRDRD_sg_runtime, tRDRD_dg_training, tRDRD_dg_training. These have to be on auto, even with having the same 7 - 4 values after training. Setting them to fixed 7 - 4 gives me always post code 55 no matter how ridiculous VCCSA I would apply -- 7empe
 
 
 
