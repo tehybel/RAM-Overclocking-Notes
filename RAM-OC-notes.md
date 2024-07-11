@@ -1,6 +1,20 @@
 
 
 
+RTLs and IOLs
+-------
+- TODO talk about memory training in general first
+- If RTLs are more than two apart, or IOLs are more than one apart across channels, then it is likely a bad memory training.
+  - Note that this is only a rule of thumb, to be used for quick sanity checks.
+  - Some online discussions talk about this as an absolute rule, but I have seen plenty of exceptions
+- format: (RTL CHA, RTL CHB, IOL CHA, IOL CHB)
+- example: 56-57-6-7 is a comparatively "good" training, because the RTLs 56 and 57 are only 1 apart, and the IOLs 6 and 7 are only 1 apart as well.
+- example: 56-58-6-8 is unlikely to be stable by our rule of thumb, because the IOLs 6 and 8 are two apart.
+- TODO talk about locking them in, and difference across manufacturers.
+- ODT RTTs are strongly related to how well your RTLs and IOLs train
+- When RTLs and IOLs won't train consistently well, it's likely because your RTTs are suboptimal
+
+
 About ODT RTTs
 --------------
 - Setting ODT RTTs (Wr, Nom, Park) correctly will *massively* impact how far you can take your OC
@@ -12,9 +26,15 @@ About ODT RTTs
 - Asus and MSI use a different order for these, making it easy to get confused!
   - Asus uses the order Wr-Park-Nom
   - MSI uses the order Wr-Nom-Park
-- In online discussions, we are better off using explicit, unambiguous notation
-  - for example, write: wr=80, park=0, nom=60. This is clearer than writing 80-0-60.
-- 
+- when communicating with others, try to use explicit, unambiguous notation
+  - for example, write: wr=80, park=0, nom=60. This is clearer than writing 80-0-60, whose meaning depends on the relevant board manufacturer
+- you can get a quick feeling for approximate RTT values by setting your IOLs and RTLs all on auto and rebooting a few times, then seeing whether the RTLs/IOLs train well
+- About scaling: as you increase demands on your memory controller (e.g. setting higher frequency, lower CAS latency) then the optimal values will change.
+  - Park drops towards 0
+  - Nom rises towards Wr
+  - Wr usually remains static at 80
+  - Very high frequencies may benefit from wr=120
+
 
 
 Misc tips and tricks
@@ -28,8 +48,17 @@ Process for optimizing
 - you will need to temporarily cause instability. The means for doing this is crucial.
 - always test inter-run variance before optimizing!
 - TODO document this.
+- custom OS installation that runs a test, saves data to storage, then auto reboots -- this is great for collecting data!
 
 
+Some findings
+-----------
+- ODT Write Duration and ODT Write Delay are independent of each other
+  - This means you can optimize one of them first while the other is on auto, then lock your found value and search for the remaining part of the pair. This will discover the optimal values; there is no need to check every pair combined.
+
+Overall process
+-------------
+- TODO document order of what to optimize, like RTLs-IOLs first, slopes near-last..
 
 
 DLL Bandwidth setting
@@ -93,6 +122,10 @@ Interesting quotes
 > [warm restart] causes post error 55. To avoid it I need to set Maximus Tweak Mode to 1 (from 2) and avoid fixing tRDRD_sg_training, tRDRD_sg_runtime, tRDRD_dg_training, tRDRD_dg_training. These have to be on auto, even with having the same 7 - 4 values after training. Setting them to fixed 7 - 4 gives me always post code 55 no matter how ridiculous VCCSA I would apply -- 7empe
 
 
+Gotchas in practice
+-------------------
+- On ASUS, disable Memory Scrambler while optimizing, then re-enable it once you want stability. Otherwise errors become inconsistent and it is hard to spot the patterns in your collected data
+- 
 
 
 
@@ -116,6 +149,9 @@ Misc Findings
 --------
 - The MSI Memory Try It! feature changes various settings behind the scenes, for example enabling or disabling some training algorithms that are set to Auto. Therefore it's worth testing different values of this feature, even if you override all the timings it sets for you.
 
+TODO and reminders
+---------
+- TODO idea: put stars out of five, indicating difficulty/advancedness, and potential gains from tweaking
 
 
 
