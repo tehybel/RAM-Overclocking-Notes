@@ -61,42 +61,6 @@ Overall process
 - TODO document order of what to optimize, like RTLs-IOLs first, slopes near-last..
 
 
-DLL Bandwidth setting
----------------------
-
-On MSI z490, I found these values:
-
-  Setting | Data
-  | ------------ | --- |
-  BW 0           | 504.00s 49072.32MB/s, with 38 hardware incidents,
-  BW 1           | 554.00s 49404.96MB/s, with 53 hardware incidents
-  BW 2           | 563.01s 49352.69MB/s, with 66 hardware incidents
-  BW 3           | (way more errors than BW2, found in a previous test)
-  auto           | 312.00s 49129.21MB/s, with 11 hardware incidents,
-
-I've retried the experiment thrice to be sure: setting DLL BW to 'auto' simply performs better than any of the manually set options! 
-
-Perhaps on auto, the board uses some mechanism to find a precisely tuned bandwidth, whereas 0/1/2/.../7 just correspond to specific frequencies that are spaced far apart? 
-
-
-Memory training algorithms
---------------------------
-
-You can sometimes find stability gains by moving specific trainings from 'Auto' to enabled/disabled. 
-
-For example, I found:
-
-  Early | Late | Data
-  | ------------ | --- | --- |
-  Enabled | Disabled        | 312.00s 49129.21MB/s, with 11 hardware incidents
-  Disabled | Enabled        | 602.00s 49303.27MB/s, with 13 hardware incidents
-
-Your frequency/board might prefer the opposite, so make sure to test both.
-
-
-
-The difficulty of RAM overclocking research
-----------------------
 
 Memory training and variance across reboots
 -----------------------------------
@@ -124,13 +88,56 @@ When I started learning, I did not realize any of this. I would collect and read
 
 Therefore I would strongly recommend keeping a small list of people who definitely know what they are doing, and ignoring advice from anyone else.[^2]
 
-As it can be difficult to tell who's posting BS when you're new to RAM OC, I've provided my own list of people whose advice I've had success following:[^1]
+As it can be difficult to tell who's posting BS when you're new to RAM OC, I've provided my own list of people whose advice I've had success following.[^1] In no particular order:
 - OLDFATSHEEP
 - 7empe
 - Falkentyne
 - Ichirou
 - PhoenixMDA
 - Noreng
+
+[^1]: One trick for deciding who to listen to online: check that their claims are backed up by results. Find a screenshot of their best memory overclock. If they have achieved outstanding results, their words deserve attention.
+
+[^2]: Be especially wary with those who sound overly confident, and those who lay out their knowledge as "universal rules". Rules often depend on your board manufacturer, IMC, Intel vs. AMD, chipset generation, cooling situation, voltages, and a whole lot of other factors.
+
+
+
+
+Memory training algorithms
+--------------------------
+
+You can sometimes find stability gains by moving specific trainings from 'Auto' to enabled/disabled. 
+
+For example, I found:
+
+  Early | Late | Data
+  | ------------ | --- | --- |
+  Enabled | Disabled        | 312.00s 49129.21MB/s, with 11 hardware incidents
+  Disabled | Enabled        | 602.00s 49303.27MB/s, with 13 hardware incidents
+
+Your frequency/board might prefer the opposite, so make sure to test both.
+
+
+
+
+
+DLL Bandwidth setting
+---------------------
+
+On MSI z490, I found that the Auto setting was consistently far more stable than any manually set bandwidth setting! Perhaps on auto, the board uses some mechanism to find a finely tuned value, whereas choosing 0/1/2/.../7 simply corresponds to specific values found in a lookup table?
+
+On Asus, I've found that this setting is worth optimizing for small stability gains. For me, the ideal value could be found in the interval between 0 and 2. This value outperformed the 'Auto' setting, unlike on MSI.
+
+The optimal value likely depends on DRAM frequency.
+
+
+
+
+Automation and tricks to save effort
+----------------------------------
+- TODO write me
+
+
 
 
 Interesting quotes
@@ -151,10 +158,13 @@ Gotchas in practice
 Recommended tools
 -----------------
 
-- [GSAT](https://github.com/stressapptest/stressapptest)
-- TestMem5 (TM5) with [these configs](https://github.com/integralfx/MemTestHelper/tree/oc-guide/TM5-Configs)
-- [y-cruncher](http://www.numberworld.org/y-cruncher/), especially the VST and VT3 stress tests
-
+- [GSAT](https://github.com/stressapptest/stressapptest) is among the best tools for stability testing. You can run it on Windows via WSL.
+- TestMem5 (TM5) with [these configs](https://github.com/integralfx/MemTestHelper/tree/oc-guide/TM5-Configs). TM5 can sometimes find errors in minutes that other tools take hours to discover. At other times TM5 finds nothing for an hour, and then VST errors after five seconds. Thus it's worth running as a supplement to other tools, to quickly find some types of errors.
+- [y-cruncher](http://www.numberworld.org/y-cruncher/)
+  - The VST, VT3 and FFT stress tests are excellent for testing stability.
+  - Y-cruncher's Pi calculation can be timed as a good benchmark. It is sensitive to most memory changes, including loaded latency.
+- {Intel Memory Latency Checker (MLC.exe)}(https://www.intel.com/content/www/us/en/developer/articles/tool/intelr-memory-latency-checker.html) is good for measuring latency and bandwidth
+- PyPrime is a good, latency-sensitive benchmark
 
 
 Useful links
@@ -166,10 +176,13 @@ Misc Findings
 --------
 - The MSI Memory Try It! feature changes various settings behind the scenes, for example enabling or disabling some training algorithms that are set to Auto. Therefore it's worth testing different values of this feature, even if you override all the timings it sets for you.
 
+
+
 TODO and reminders
 ---------
 - TODO idea: put stars out of five, indicating difficulty/advancedness, and potential gains from tweaking
 - talk about cold vs. warm boot, full powerdown with power supply off, boot stability
+- write about stability testing, its importance, which tools work well
 - 
 
 Disclaimers
@@ -179,8 +192,3 @@ Disclaimers
 - I have only looked at DDR4
 - I have only look at Asus and MSI boards so far
 
-Footnotes
-------------
-[^1]: One trick for deciding who to listen to online: check that their claims are backed up by results. Find a screenshot of their best memory overclock. If they have achieved outstanding results, their words deserve attention.
-
-[^2]: Be especially wary with those who sound overly confident, and those who lay out their knowledge as "universal rules": Rules often depend on your board manufacturer, IMC, Intel vs. AMD, chipset generation, cooling situation, voltages, and a whole lot of other factors.
