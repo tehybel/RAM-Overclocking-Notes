@@ -59,7 +59,7 @@ Cmd Normalization
 </code>
 </details>
 
-We say that your memory "trains well" when parameters were found that led to your RAM being stable and error-free. Otherwise we call it a "bad training".
+After booting, if parameters were found that led to your RAM being stable and error-free, we say that your memory "trained well". Otherwise we call it a "bad training".
 
 A common situation in RAM overclocking is that one boot, your system is rock solid and stable.. and then the next boot you get tons of memory errors and crashes. 
 
