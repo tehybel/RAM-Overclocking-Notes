@@ -1,5 +1,32 @@
 
 
+For now, this document is a mix of findings, tips, notes, and advice.
+
+I hope to eventually turn it into a full-fledged guide. 
+
+Until then, the order of sections is a jumbled mess - but feel free to skim through it and take whatever you find useful with you.
+
+
+About Memory Training
+-------------------
+Each time you boot your computer, it goes through a process known as memory training. Memory must be trained before you can enter your BIOS or proceed to your operating system, because these systems need to use RAM to operate.
+In other words, memory training occurs in the time between when you press the power button and the time when you are able to enter your BIOS. 
+
+During memory training, your system goes through a long lineup of algorithms to tune timings and parameters that are specific to your memory, motherboard, processor, and even the current heat level of your RAM sticks. 
+
+We say that your memory "trains well" when parameters were found that led to your RAM being stable and error-free. Otherwise we call it a "bad training".
+
+A common situation in RAM overclocking is that one boot, your system is rock solid and stable.. and then the next boot you get tons of memory errors and crashes. 
+
+Knowing about memory training is useful because it can explain what's going on in this situation: your memory trained well the first time, and poorly the second. To stabilize the system, you will need to find settings that consistently train well.
+
+If you enable "fast boot" under your BIOS, the old training will be saved and reused on each boot. You generally want to **turn fast boot off** when you are RAM overclocking to avoid confusion and ensure stability. This way you get to see many different trainings of your memory as you reboot, and you can confirm that all of them are stable.
+
+Even with fast boot enabled, if your system crashes, it will re-train memory on the next boot. You can tell this is happening as the boot takes far longer than usual.
+
+If your motherboard has a [seven-segment display](https://i.ytimg.com/vi/bEjH775UeNg/maxresdefault.jpg) with numeric codes, you can follow along as it trains. Sadly only expensive motherboards have this feature nowadays.
+
+
 
 RTLs and IOLs
 -------
