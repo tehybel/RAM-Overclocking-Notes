@@ -95,25 +95,42 @@ Your frequency/board might prefer the opposite, so make sure to test both.
 
 
 
-About internet content
+The difficulty of RAM overclocking research
 ----------------------
-TODO: write about trusted sources only, give some usernames?
+
+Memory training and variance across reboots
+-----------------------------------
+Imagine that you want to compare two different values for a setting to determine which is more stable. For example, you may ask yourself, "is setting an ODT RTT of 80-0-34 or 80-0-48 better on my system? Which one should I use for best results?"
+
+Let's say you try to boot up both settings, one at a time, and run a stability test on each boot. You find that on the first boot, having set 80-0-34, the test fails after 20 minutes. On the second boot, with 80-0-48, it fails after 8 minutes. You may then conclude, "80-0-34 is better on my system than 80-0-48, because the stability test ran for 20 minutes -- far more than only 8 minutes." But then, the next day after a fresh boot, your system has destabilized and you're quickly getting memory errors!? What's going on?
+
+The issue is that on each boot, your board trains its memory anew. This involves running a long list of algorithms to determine values for various hidden parameters and timings, many of which can hurt stability if the training goes wrong. As you increase your overclock, it gets more difficult for this memory training to consistently succeed. Additionally, the training results vary depending on DIMM temperature and a whole host of other, essentially random factors. 
+
+Returning to our "80-0-34 vs 80-0-48" example, the problem came from drawing a conclusion based on only two data points. If you want to be sure which setting is best, you will need to do multiple reboots, run stability test(s) each time, and gather data in a spreadsheet. 
+
+Analyzing your data, then, is no longer a simple comparison between two numbers - it becomes a matter of statistics. Since data needs statistical analysis, there are no longer any clear, black-and-white answers. All you get is a probability that one value is better than the other.
 
 
+Online sources of information
+----------
 
-People confirmed to know what they're doing
--------------------------------------------
+Due to the variability of memory training across boots, it is easy to draw the wrong conclusions. To be fully certain, you need to gather data via long stability tests across multiple reboots. Only then do you have a reasonable level of certainty that your conclusion is correct -- at least for your particular system.
+
+For this reason, high-level RAM overclocking demands a level of rigor and meticulousness that most people frankly just don't have the patience for. 
+
+Therefore, there is **a lot** of conflicting and just plain **wrong** information about RAM overclocking online. I doubt most people set out to mislead or cause confusion; people share information with an intention to be helpful. It's just that finding the truth requires so much careful effort, and it's so easy to misstep.
+
+When I started learning, I did not realize any of this. I would collect and read through all the material I could find online. I assumed everyone knew more than me. However, it turned out that a lot of it was wrong, or at least did not hold true on my personal system. It made me feel confused and uncertain, cost me a lot of time, and it held back my progress.
+
+Therefore I would strongly recommend keeping a small list of people who definitely know what they are doing, and ignoring advice from anyone else.[^2]
+
+As it can be difficult to tell who's posting BS when you're new to RAM OC, I've provided my own list of people whose advice I've had success following:[^1]
 - OLDFATSHEEP
 - 7empe
 - Falkentyne
 - Ichirou
 - PhoenixMDA
-- TODO add more
-
-To decide who to listen to, check that their claims are backed up by results. Find a screenshot of their best memory overclock. If they have achieved outstanding results, their words deserve attention.
-
-The better you get, the easier it will be to tell who is (often accidentally) sharing misinformation.
-
+- Noreng
 
 
 Interesting quotes
@@ -152,6 +169,18 @@ Misc Findings
 TODO and reminders
 ---------
 - TODO idea: put stars out of five, indicating difficulty/advancedness, and potential gains from tweaking
+- talk about cold vs. warm boot, full powerdown with power supply off, boot stability
+- 
 
+Disclaimers
+-----------
+- I have only tested this information on B-die
+- I have only used Intel systems
+- I have only looked at DDR4
+- I have only look at Asus and MSI boards so far
 
+Footnotes
+------------
+[^1]: One trick for deciding who to listen to online: check that their claims are backed up by results. Find a screenshot of their best memory overclock. If they have achieved outstanding results, their words deserve attention.
 
+[^2]: Be especially wary with those who sound overly confident, and those who lay out their knowledge as "universal rules": Rules often depend on your board manufacturer, IMC, Intel vs. AMD, chipset generation, cooling situation, voltages, and a whole lot of other factors.
