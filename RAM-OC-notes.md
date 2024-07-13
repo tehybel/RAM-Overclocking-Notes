@@ -192,12 +192,12 @@ Background info on ODT RTTs
 -----------------------------
 
 - The unit for RTT is Ohms. The RTTs are resistances.
-- Nom is short for Nominal[3^]
+- Nom is short for Nominal[^polarfire]
 - Wr is short for Write; it is the termination resistance used during a write operation
-- Park is a default, or "parked" value when nothing else is going on[^4]
+- Park is a default, or "parked" value when nothing else is going on[^samsung]
 
-[^3]: https://microchip.my.site.com/s/article/Use-of-the--ODT-Rtt-Nominal-Value--and--Dynamic-ODT--Rtt-WR---parameters-in-the-PolarFire-DDR-memory-controller
-[^4]: https://download.semiconductor.samsung.com/resources/device-operation-timing-diagram/DDR4_Device_Operations_Rev11_Oct_14-0.pdf
+[^polarfire]: https://microchip.my.site.com/s/article/Use-of-the--ODT-Rtt-Nominal-Value--and--Dynamic-ODT--Rtt-WR---parameters-in-the-PolarFire-DDR-memory-controller
+[^samsung]: https://download.semiconductor.samsung.com/resources/device-operation-timing-diagram/DDR4_Device_Operations_Rev11_Oct_14-0.pdf
 
 See also:
 - https://en.wikipedia.org/wiki/On-die_termination
