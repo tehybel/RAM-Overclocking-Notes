@@ -7,12 +7,57 @@ I hope to eventually turn it into a full-fledged guide.
 Until then, the order of sections is a jumbled mess - but feel free to skim through it and take whatever you find useful with you.
 
 
+
+
 About Memory Training
 -------------------
-Each time you boot your computer, it goes through a process known as memory training. Memory must be trained before you can enter your BIOS or proceed to your operating system, because these systems need to use RAM to operate.
-In other words, memory training occurs in the time between when you press the power button and the time when you are able to enter your BIOS. 
+Each time you boot your computer, it goes through a process known as memory training. During memory training, your system goes through a long lineup of algorithms to tune timings and parameters that are specific to your memory, motherboard, processor, and even the current heat level of your RAM sticks. This training must complete before your system can use its RAM. 
 
-During memory training, your system goes through a long lineup of algorithms to tune timings and parameters that are specific to your memory, motherboard, processor, and even the current heat level of your RAM sticks. 
+Thus memory training occurs in the time between when you press the power button and the time when you are able to enter your BIOS. If your motherboard has a [seven-segment display](https://i.ytimg.com/vi/bEjH775UeNg/maxresdefault.jpg) with numeric codes, you can follow along as it trains. Sadly only expensive motherboards have this feature nowadays.
+
+You can find a list of memory training algorithms inside your BIOS's advanced settings, where you can enable or disable individual algorithms. 
+
+<details>
+  <summary>Example List of Memory Training Algorithms</summary>
+<code>
+Early Command Training 
+SenseAmp Offset Training 
+Early ReadMPR Timing Centering 2D 
+Read MPR Training 
+Receive Enable Training 
+Jedec Write Leveling 
+Early Write Time Centering 2D 
+Early Write Drive Strength / Equalization
+Early Read Time Centering 2D 
+Write Timing Centering 1D 
+Write Voltage Centering 1D 
+Read Timing Centering 1D 
+Dimm ODT Training* 
+DIMM RON Training* 
+Write Drive Strength/Equalization 2D* 
+Write Slew Rate Training* 
+Read ODT Training* 
+Read Equalization Training* 
+Read Amplifier Training* 
+Write Timing Centering 2D 
+Read Timing Centering 2D 
+Command Voltage Centering 
+Write Voltage Centering 2D 
+Read Voltage Centering 2D 
+Late Command Training 
+Round Trip Latency 
+Turn Around Timing Training 
+Rank Margin Tool 
+Memory Test 
+DIMM SPD Alias Test 
+Receive Enable Centering 1D 
+Retrain Margin Check 
+Write Drive Strength Up/Dn independently 
+CMD Slew Rate Training 
+CMD Drive Strength and Tx Equalization 
+Cmd Normalization
+</code>
+</details>
 
 We say that your memory "trains well" when parameters were found that led to your RAM being stable and error-free. Otherwise we call it a "bad training".
 
@@ -24,22 +69,29 @@ If you enable "fast boot" under your BIOS, the old training will be saved and re
 
 Even with fast boot enabled, if your system crashes, it will re-train memory on the next boot. You can tell this is happening as the boot takes far longer than usual.
 
-If your motherboard has a [seven-segment display](https://i.ytimg.com/vi/bEjH775UeNg/maxresdefault.jpg) with numeric codes, you can follow along as it trains. Sadly only expensive motherboards have this feature nowadays.
-
 
 
 RTLs and IOLs
 -------
-- TODO talk about memory training in general first
+RTLs and IOLs are values that get set on each boot. They affect stability. You will want to find good values for them and set them to these fixed values inside the BIOS. This way, your board trains those RTLs and IOLs on every boot. This decreases variance and increases stability.
+
+Additionally, RTLs and IOLs, when left on auto, can sometimes provide a hint about whether your memory training was good or bad.
+
 - If RTLs are more than two apart, or IOLs are more than one apart across channels, then it is likely a bad memory training.
   - Note that this is only a rule of thumb, to be used for quick sanity checks.
   - Some online discussions talk about this as an absolute rule, but I have seen plenty of exceptions
-- format: (RTL CHA, RTL CHB, IOL CHA, IOL CHB)
+- format: `RTL CHA` - `RTL CHB` - `IOL CHA` - `IOL CHB`
 - example: 56-57-6-7 is a comparatively "good" training, because the RTLs 56 and 57 are only 1 apart, and the IOLs 6 and 7 are only 1 apart as well.
 - example: 56-58-6-8 is unlikely to be stable by our rule of thumb, because the IOLs 6 and 8 are two apart.
 - TODO talk about locking them in, and difference across manufacturers.
 - ODT RTTs are strongly related to how well your RTLs and IOLs train
 - When RTLs and IOLs won't train consistently well, it's likely because your RTTs are suboptimal
+- RTLs vary by tCL. Raising tCL by one will require raising all RTLs by two.
+- Higher memory frequencies may require slightly higher RTLs. For example:
+  - at 4200 MHz my board likes 56-56-7-7
+  - at 4300 MHz, it prefers 56-57-6-7 for stability
+  - at 4400 MHz, 57-57-7-7 seems ideal.
+
 
 
 About ODT RTTs
@@ -61,7 +113,9 @@ About ODT RTTs
   - Nom rises towards Wr
   - Wr usually remains static at 80
   - Very high frequencies may benefit from wr=120
-
+- it is very possible that memory channels A and B prefer slightly different RTTs.
+  - for example, CHA might prefer 80-0-48 while CHB should be 80-0-60 for optimal stability.
+  - Start by optimizing both channels together, changing values for both channels at once. Then finish the process by tweaking the RTTs slightly up and down one channel at a time, to look for better values.
 
 
 Misc tips and tricks
@@ -133,19 +187,24 @@ As it can be difficult to tell who's posting BS when you're new to RAM OC, I've 
 Memory training algorithms
 --------------------------
 
-You can sometimes find stability gains by moving specific trainings from 'Auto' to enabled/disabled. 
+You can sometimes find stability gains by moving specific trainings from 'Auto' to enabled/disabled.
 
-For example, I found:
+The algorithms "Early Command Training" and "Late Command Training" are inter-dependent. You usually want to ensure only one of them is enabled at a time. Around 3200-4000 MHz, having only Early training enabled gives the best results. Once you push your RAM past a certain point, around CL16-CL17 and/or 4200 MHz, then disabling Early training and enabling only Late training gives better results.
 
-  Early | Late | Data
-  | ------------ | --- | --- |
-  Enabled | Disabled        | 312.00s 49129.21MB/s, with 11 hardware incidents
-  Disabled | Enabled        | 602.00s 49303.27MB/s, with 13 hardware incidents
+Turn Around Timing Training: unless you disable this, some of your secondary timings may surreptitiously get changed across boots. Your settings for secondaries will only be taken as guidelines. I recommend always disabling this.
 
-Your frequency/board might prefer the opposite, so make sure to test both.
+The 2D Centering and/or Voltage Centering trainings have been useful for me, but only in four-DIMM setups.
 
+The first algorithms up to around Jedec Write Leveling are usually required to be Enabled in order to boot.
 
+The "Early" versions of trainings are linked with the normal versions. I think only variant needs to run. For example, on MSI, enabling "Early Write Time Centering 2D" will disable "Write Time Centering 2D", assuming it is on Auto. 
 
+I recommend testing each one of these, as I have had stability gains with them, but not many of the others:
+- Early/Late Command Training (see above)
+- Round Trip Latency: **Enabled**
+- Turn Around Timing Training: **Disabled**
+- Memory Test Training: **Disabled**
+- 
 
 
 DLL Bandwidth setting
