@@ -212,7 +212,7 @@ Optimal RTTs depend on your memory frequency, but the frequency you can reach al
 
 Each of the variables Wr, Nom and Park can only take specific values: 0, 34, 40, 48, 60, 80, 120, 240, 255. So you cannot set, for example, Wr=94. Only Wr=80 or Wr=120. (In MSI BIOS you can fine-tune ODT RTTs, though. This is likely not worth fiddling with until much later in the overclocking process.)
 
-Which values should you use? If you haven't played with RTTs before, try a few of these settings as a starting point; they're in Asus format (wr-park-nom):
+Which values should you use? If you haven't played with RTTs before, try a few of these settings as a starting point; they're in MSI format (wr-nom-park):
 - 80-34-48
 - 80-40-60
 - 80-0-34
