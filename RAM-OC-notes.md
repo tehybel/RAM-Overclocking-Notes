@@ -171,7 +171,7 @@ Additionally, RTLs and IOLs, when left on auto, can sometimes provide a hint abo
 
 
 
-ODT RTT skews
+ODT RTTs
 -------------
 
 - Setting ODT RTTs (Wr, Nom, Park) correctly will *massively* impact how far you can take your OC
@@ -179,13 +179,28 @@ ODT RTT skews
 - RTTs can be found under the Skews menu in the Asus BIOS, and are also known as ODT Skews.
 
 
-RTTs (Round Trip Times) are the values for Nom, Wr, Park that can be manually set in your BIOS for each memory channel. They strongly affect stability at higher frequencies. Setting correct values for them is crucial in order for your DIMM's ODT (On-Die Termination) to work well. This ensures signal stability even at high frequencies, letting you OC your sticks much further.
+RTTs (Termination Resistances) are the values for Nom, Wr, Park that can be manually set in your BIOS for each memory channel. They strongly affect stability at higher frequencies. Setting correct values for them is crucial in order for your DIMM's ODT (On-Die Termination) to work well. This ensures signal stability even at high frequencies, letting you OC your sticks much further.
 
 Recommended reading for setting RTTs: [overclock.net/threads/the-importance-of-skew-control-for-memory-overclocking.1774358/](The importance of skew control for memory overclocking)
 
 Here's a quote by munternet, the author of that thread:
 
 > I can see now that it would be easy to think you were unlucky in the silicon lottery or your IMC isn't any good just because your skews aren't set correctly
+
+
+Background info on ODT RTTs
+-----------------------------
+
+- The unit for RTT is Ohms. The RTTs are resistances.
+- Nom is short for Nominal[3^]
+- Wr is short for Write; it is the termination resistance used during a write operation
+- Park is a default, or "parked" value when nothing else is going on[^4]
+
+[^3]: https://microchip.my.site.com/s/article/Use-of-the--ODT-Rtt-Nominal-Value--and--Dynamic-ODT--Rtt-WR---parameters-in-the-PolarFire-DDR-memory-controller
+[^4]: https://download.semiconductor.samsung.com/resources/device-operation-timing-diagram/DDR4_Device_Operations_Rev11_Oct_14-0.pdf
+
+See also:
+- https://en.wikipedia.org/wiki/On-die_termination
 
 
 Setting the RTTs in practice
