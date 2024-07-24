@@ -315,7 +315,10 @@ Interesting quotes
 > [warm restart] causes post error 55. To avoid it I need to set Maximus Tweak Mode to 1 (from 2) and avoid fixing tRDRD_sg_training, tRDRD_sg_runtime, tRDRD_dg_training, tRDRD_dg_training. These have to be on auto, even with having the same 7 - 4 values after training. Setting them to fixed 7 - 4 gives me always post code 55 no matter how ridiculous VCCSA I would apply -- 7empe
 
 
-
+Links
+---------------
+- [Perfect's RAM OC Guide](https://docs.google.com/document/d/15qsrwUxGbKtqjeyEhmCear2kN9hCt2noKK5z14Webhg/edit?pli=1)
+- [Integralfx's DDR4 OC guide](https://github.com/integralfx/MemTestHelper/blob/oc-guide/DDR4%20OC%20Guide.md)
 
 
 TODO and reminders
