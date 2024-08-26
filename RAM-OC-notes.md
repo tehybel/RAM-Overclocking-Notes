@@ -1,10 +1,10 @@
 
 
-For now, this document is a mix of findings, tips, notes, and advice.
+For now, this document is a mix of findings, tips, notes, and advice for overclocking memory - specifically DDR4 B-die memory on Intel platforms.
 
 I hope to eventually turn it into a full-fledged guide. 
 
-Until then, the order of sections is a jumbled mess - but feel free to skim through it and take whatever you find useful with you.
+Until then, sections may be reordered and I'm still adding information, but feel free to skim through it and take whatever you find useful with you. If you found it useful, feel free to leave a Github Star, or link others here when they ask questions :-)
 
 
 
@@ -19,7 +19,26 @@ TODO write me
 
 Overall process
 -------------
-- TODO document order of what to optimize, like RTLs-IOLs first, slopes near-last..
+- This link has a useful [order of which timings to optimize](https://github.com/integralfx/MemTestHelper/issues/87#issuecomment-2119254780). The link is an issue posted to the well-known "MemTestHelper" guide here on Github. Sadly the changes were not incorporated into that guide, but @IslamGhunym is correct. To paraphrase his comment:
+
+- turn PowerDown mode off before you start
+- turn Memory Fast Boot off (or set it to Slow Training on MSI) while overclocking
+- core/cache OC: get your processor core- and cache overclocks stable before you start on RAM. Alternatively, leave them until after you're done with RAM overclocking. Mixing them up gets very confusing fast.
+- Memory Frequency CR2: see how far up in frequency your memory will go with Command Rate set to 2.
+- Memory Frequency CR1: see how far up in frequency your memory will go on CR1
+- choose CR1 or CR2 depending on results, prioritizing CR2 if it's 200+ MT/s higher than CR1, as a rule of thumb
+- then do tRRDS/L + tFAW as it speeds up memory testing and is largely independent from all the other parameters
+- tCL should go next as many of the following timings depend on it
+- find good RTL/IOLs and lock them
+- find the lowest possible tRCD/tRP
+- lower tWR/tRTP together, keeping tWR as twice the value of tRTP
+- lower tCWL; this goes after tCL since tCWL depends on it 
+- after tCWL is tightened, lower tWRRD-sg/dg. These two timings are inter-dependent. Tightening one makes it harder to tighten the other.
+- tRDRD, tWRWR
+- tRFC, tREFI can be optimized here. Note that they are very temperature sensitive, so stress test your GPU while testing RAM to raise chassis temperature to a realistic one (unless you have your GPU/RAM watercooled)
+- stop here if satisfied, or try advanced techniques documented below if you want to take your OC further
+
+- TODO further document order of which advanced parameters to optimize, like RTLs-IOLs first, slopes near-last..
 
 
 
