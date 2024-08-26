@@ -63,7 +63,8 @@ Recommended tools
   - Y-cruncher's Pi calculation can be timed as a good benchmark. It is sensitive to most memory changes, including loaded latency.
 - [Intel Memory Latency Checker (MLC.exe)](https://www.intel.com/content/www/us/en/developer/articles/tool/intelr-memory-latency-checker.html) is good for measuring latency and bandwidth
 - PyPrime is a good, latency-sensitive benchmark
-
+- Asrock Timing Configurator is a useful tool for showing your current timings. It works on any boards, not just Asrock.
+- On ASUS, the MemTweakIt tool is also very useful; it serves the same purpose as Asrock Timing Configurator, but further allows real-time timing changes.
 
 
 
