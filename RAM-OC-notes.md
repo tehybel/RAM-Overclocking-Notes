@@ -313,7 +313,7 @@ The 2D Centering and/or Voltage Centering trainings have been useful for me, but
 
 The first algorithms up to around Jedec Write Leveling are usually required to be Enabled in order to boot.
 
-The "Early" versions of trainings are linked with the normal versions. I think only variant needs to run. For example, on MSI, enabling "Early Write Time Centering 2D" will disable "Write Time Centering 2D", assuming it is on Auto. 
+The "Early" versions of trainings are linked with the normal, non-early versions. I believe only one of the normal/early variants needs to run. For example, on MSI, enabling "Early Write Time Centering 2D" will implicitly disable "Write Time Centering 2D", assuming it is on Auto -- and vice versa. 
 
 I recommend testing each one of these, as I have had stability gains with them, but not many of the others:
 - Early/Late Command Training (see above)
