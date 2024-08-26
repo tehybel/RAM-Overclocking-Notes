@@ -32,7 +32,7 @@ Overall process
 - find the lowest possible tRCD/tRP
 - lower tWR/tRTP together, keeping tWR as twice the value of tRTP
 - lower tCWL; this goes after tCL since tCWL depends on it 
-- after tCWL is tightened, lower tWRRD-sg/dg. These two timings are inter-dependent. Tightening one makes it harder to tighten the other.
+- after tCWL is tightened, lower tWRRD-sg/dg. Note that tCWL and tWRRD are inter-dependent: tightening one makes it harder to tighten the other.
 - tRDRD, tWRWR
 - tRFC, tREFI can be optimized here. Note that they are very temperature sensitive, so stress test your GPU while testing RAM to raise chassis temperature to a realistic one (unless you have your GPU/RAM watercooled)
 - stop here if satisfied, or try advanced techniques documented below if you want to take your OC further
