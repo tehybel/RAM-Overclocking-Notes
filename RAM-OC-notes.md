@@ -224,7 +224,9 @@ Other notes on RTTs
 -------------
 - when your RTLs and IOLs fail to train well on auto, it's usually because your RTTs are wrong (or you set a timing too tight)
 - if your RTLs/IOLs only go very high/bad on one channel, but not the other, it's a strong hint that your RTTs for that channel are wrong!
-  - for example, if your auto training often lands on 57-64-7-14, rather than around 57-57-7-7, then the high numbers are on Channel B, and you could try tweaking CHB ODT RTTs a bit up or down to see if that helps.  
+  - for example, if your auto training often lands on 57-64-7-14, rather than around 57-57-7-7, then the high numbers are on Channel B, and you could try tweaking CHB ODT RTTs a bit up or down to see if that helps.
+  - Tweak one of Park/Nom at a time, moving it one step up or down. Then do 3-5 reboots and see if your RTLs and IOLs on Auto become better.
+  - If you just changed frequency and your skews no longer fit, it can be useful to switch one of ChA/ChB Park/Nom to Auto, then back again. Do all four parameters one at a time to identify which one is wrong. 
 - Wr is usually fixed at 80. At very high frequencies (4500+) it can sometimes be better at 120.
 - Asus and MSI use a different order for these, making it easy to get confused!
   - Asus uses the order Wr-Park-Nom
@@ -233,10 +235,9 @@ Other notes on RTTs
   - for example, write: wr=80, park=0, nom=60. This is clearer than writing 80-0-60, whose meaning depends on the relevant board manufacturer
 - you can get a quick feeling for approximate RTT values by setting your IOLs and RTLs all on auto and rebooting a few times, then seeing whether the RTLs/IOLs train well
 - About scaling: as you increase demands on your memory controller (e.g. setting higher frequency, lower CAS latency) then the optimal values will change.
-  - Park drops towards 0
-  - Nom rises towards Wr
-  - Wr usually remains static at 80
-  - Very high frequencies may benefit from wr=120
+  - Wr usually remains static at 80; very high frequencies may benefit from wr=120
+  - Nom drops slightly (e.g., 80-40-40 optimal at 4200C15, 80-40-34 optimal at 4300C15)
+  - (Previously I found that Park drops towards 0 and Nom increases towards Wr, but I cannot replicate this, perhaps due to using different sticks?)
 - it is very possible that memory channels A and B prefer slightly different RTTs.
   - for example, CHA might prefer 80-0-48 while CHB should be 80-0-60 for optimal stability.
   - Start by optimizing both channels together, changing values for both channels at once. Then finish the process by tweaking the RTTs slightly up and down one channel at a time, to look for better values.
