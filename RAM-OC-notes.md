@@ -19,8 +19,7 @@ TODO write me
 
 Overall process
 -------------
-- This link has a useful [order of which timings to optimize](https://github.com/integralfx/MemTestHelper/issues/87#issuecomment-2119254780). The link is an issue posted to the well-known "MemTestHelper" guide here on Github. Sadly the changes were not incorporated into that guide, but @IslamGhunym is correct. To paraphrase his comment:
-
+- The following steps are based on the linked comment with [an order of which timings to optimize when](https://github.com/integralfx/MemTestHelper/issues/87#issuecomment-2119254780)
 - turn PowerDown mode off before you start
 - turn Memory Fast Boot off (or set it to Slow Training on MSI) while overclocking
 - core/cache OC: get your processor core- and cache overclocks stable before you start on RAM. Alternatively, leave them until after you're done with RAM overclocking. Mixing them up gets very confusing fast.
