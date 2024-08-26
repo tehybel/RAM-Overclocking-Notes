@@ -19,23 +19,35 @@ TODO write me
 
 Overall process
 -------------
-- The following steps are based on the linked comment with [an order of which timings to optimize when](https://github.com/integralfx/MemTestHelper/issues/87#issuecomment-2119254780)
+The following steps are based on this [comment with an order of which timings to optimize when](https://github.com/integralfx/MemTestHelper/issues/87#issuecomment-2119254780). Make sure you run extensive memory testing (i.e., several hours) between every variable change, so that you will know exactly what's causing issues at any point in time.
+
+First some preliminary steps:
 - turn PowerDown mode off before you start
 - turn Memory Fast Boot off (or set it to Slow Training on MSI) while overclocking
 - core/cache OC: get your processor core- and cache overclocks stable before you start on RAM. Alternatively, leave them until after you're done with RAM overclocking. Mixing them up gets very confusing fast.
-- Memory Frequency CR2: see how far up in frequency your memory will go with Command Rate set to 2.
-- Memory Frequency CR1: see how far up in frequency your memory will go on CR1
-- choose CR1 or CR2 depending on results, prioritizing CR2 if it's 200+ MT/s higher than CR1, as a rule of thumb
-- then do tRRDS/L + tFAW as it speeds up memory testing and is largely independent from all the other parameters
+
+Next, find out which frequency to aim for:
+- raise your primary timings to tCL=20, tRCD=20 before you raise frequency so that tCL will not limit how high you can go
+- also lock down tRDRD=tWRWR=8; tWRRDs to 16-16; and tRRDs to 6-6 before you proceed. Otherwise I've seen some BIOSes raise these to unacceptable heights to compensate for higher frequencies, making you think such a frequency is OK when it's really not.
+- now see how far up in frequency your memory will go with Command Rate set to 2.
+- then see how far up in frequency your memory will go on CR1. If on Asus, turn on trace centering before testing. If you're on a 4-DIMM board/setup, it's normal that high frequency CR1 is very hard.
+- next, choose CR1 or CR2 depending on your results, prioritizing CR2 if it's 200+ MT/s higher than CR1 as a basic rule of thumb
+
+Having settled on a frequency, we move on to the most important timings:
+- lower tRRDS/L + tFAW as it speeds up memory testing and is largely independent from all the other parameters. 4-6-16 is usually a safe, performant setup for these
 - tCL should go next as many of the following timings depend on it
-- find good RTL/IOLs and lock them
-- find the lowest possible tRCD/tRP
-- lower tWR/tRTP together, keeping tWR as twice the value of tRTP
+- find good RTL/IOLs and lock them. These depend on frequency and tCL.
+    - if you cannot train good RTLs/IOLs, optimize your ODT RTT skews to fix this
+- lower tRCD/tRP
+
+At this point you've locked down the main timings, but there's a few more gains to be had - mostly when it comes to loaded latency:
+- lower tWR/tRTP together, keeping tWR at twice the value of tRTP
 - lower tCWL; this goes after tCL since tCWL depends on it 
 - after tCWL is tightened, lower tWRRD-sg/dg. Note that tCWL and tWRRD are inter-dependent: tightening one makes it harder to tighten the other.
-- tRDRD, tWRWR
-- tRFC, tREFI can be optimized here. Note that they are very temperature sensitive, so stress test your GPU while testing RAM to raise chassis temperature to a realistic one (unless you have your GPU/RAM watercooled)
-- stop here if satisfied, or try advanced techniques documented below if you want to take your OC further
+- lower tRDRD and tWRWR
+- Finally, tRFC, tREFI can be optimized here, but doing them at earlier points works fine too. Note that they are very temperature sensitive, so stress test your GPU while testing RAM to raise chassis temperature to a realistic one (unless you have your GPU/RAM watercooled). These two timings are crucial for latency, which is what matters for 1% FPS lows in gaming.
+
+You can then stop here if you're satisfied, or try advanced techniques documented below if you want to take your OC further
 
 - TODO further document order of which advanced parameters to optimize, like RTLs-IOLs first, slopes near-last..
 
