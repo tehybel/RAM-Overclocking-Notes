@@ -27,7 +27,7 @@ First some preliminary steps:
 - core/cache OC: get your processor core- and cache overclocks stable before you start on RAM. Alternatively, leave them until after you're done with RAM overclocking. Mixing them up gets very confusing fast.
 
 Next, find out which frequency to aim for:
-- raise your primary timings to tCL=20, tRCD=20 before you raise frequency so that tCL will not limit how high you can go
+- raise your primary timings to tCL=20, tRCD=20, tRAS=46 before you raise frequency so that tCL will not limit how high you can go
 - also lock down tRDRD=tWRWR=8; tWRRDs to 16-16; and tRRDs to 6-6 before you proceed. Otherwise I've seen some BIOSes raise these to unacceptable heights to compensate for higher frequencies, making you think such a frequency is OK when it's really not.
 - now see how far up in frequency your memory will go with Command Rate set to 2.
 - then see how far up in frequency your memory will go on CR1. If on Asus, turn on trace centering before testing. If you're on a 4-DIMM board/setup, it's normal that high frequency CR1 is very hard.
@@ -39,6 +39,7 @@ Having settled on a frequency, we move on to the most important timings:
 - find good RTL/IOLs and lock them. These depend on frequency and tCL.
     - if you cannot train good RTLs/IOLs, optimize your ODT RTT skews to fix this
 - lower tRCD/tRP
+- set tRAS=tCL+tRCD+6 or +4. Note that lowering tRAS below this point usually lowers performance, so run extensive benchmarks if you insist on trying this.
 
 At this point you've locked down the main timings, but there's a few more gains to be had - mostly when it comes to loaded latency:
 - lower tWR/tRTP together, keeping tWR at twice the value of tRTP
