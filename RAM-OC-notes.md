@@ -4,7 +4,9 @@ For now, this document is a mix of findings, tips, notes, and advice for overclo
 
 I hope to eventually turn it into a full-fledged guide. 
 
-Until then, sections may be reordered and I'm still adding information, but feel free to skim through it and take whatever you find useful with you. If you found it useful, feel free to leave a Github Star, or link others here when they ask questions :-)
+Until then, sections may be reordered and I'm still adding information, but feel free to skim through it and take whatever you find useful with you. 
+
+If you found this useful, feel free to leave a Github Star to help motivate me :-)
 
 
 
