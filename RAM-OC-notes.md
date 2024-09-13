@@ -343,7 +343,7 @@ In my experience, you **cannot** safely assume that `Rtt Wr >= Rtt Park >= Rtt N
 You should also check each setting for 3+ reboots to ensure it trains consistently, at least once you have narrowed down your options.
 
 
-Make sure to also read [overclock.net/threads/the-importance-of-skew-control-for-memory-overclocking.1774358/](The importance of skew control for memory overclocking). In that thread, @munternet from overclock.net explains how he found optimal ODT RTT values:
+Make sure to also read [The importance of skew control for memory overclocking](https://overclock.net/threads/the-importance-of-skew-control-for-memory-overclocking.1774358/). In that thread, @munternet from overclock.net explains how he found optimal ODT RTT values:
 
     I spent the day testing different settings to see just how much difference the skew settings make and it seems it won't even boot with many of them
     
@@ -373,6 +373,39 @@ Make sure to also read [overclock.net/threads/the-importance-of-skew-control-for
 
 ![Skew Control Results](./SkewControl.jpg)
 
+
+Keeping a spreadsheet like the above is extremely helpful when optimizing ODT RTTs, and any other values that require extensive testing. I like to use Google Sheets for it.
+
+Another approach by @Ichirou from overclock.net is quoted here. He describes how to find a more advanced setting (Bitline Slopes) but the approach is useful for ODT RTTs too:
+
+    I've found a much better approach to take for these slopes, which is much easier and faster.
+    Take your most stable config, and pull down VDIMM by a little bit (so that it is unstable, but can still boot to desktop).
+    
+    Afterwards, instead of doing each group in pairs, do them individually by leaving the other on Auto. The rising is more important than the falling.
+    Pay close attention to how well your PC boots. If the value is stable enough, it will boot to the desktop.
+    If it's only somewhat stable, you might experience only partially booting, or taking a while before it BSODs, etc.
+    If you can't even boot, or if it instantly BSODs on load, that means that value is worse compared to the last one you tested.
+    
+    Take notes and essentially knock off each value one by one. Once you have one side (rising) figured out, the other side should be much easier
+    Booting to the desktop is already quite the feat once you reduce your VDIMM. That's long before GSAT even matters.
+    You'll likely find that only specific values will let you reach the desktop, while the rest just gets stuck on load.
+    It's best not to lock in values for other groups too soon, as some can collide with other groups. You will want to find all potential values per group first.
+    
+    Of course, you should obviously lock in your RTTs first as well as your ODTs.
+    RTTs kind of involve a bit of field testing, but usually the WRs will be 80, which already narrows down your options. And NOM and PARK tend to be at most 120.
+    The ODTs are revealed on MSI boards, but might not be on others (like ASUS).
+    
+    You can use the same method here to figure out the ODTs. Find [an unstable] config, Auto all but one ODT value, and gradually raise it from 0 until it's stable.
+
+So in essence, you can optimize a single setting out of Wr/Park/Nom at a time by doing the following:
+
+- set all your ODT RTT values on Auto
+- introduce slight memory instability
+- raise your setting from 0 up to its maximum, trying all different values for it
+- if one of these causes stability, note it down
+- repeat with other settings
+
+A small but very **useful tip** I figured out: it's best to optimize ODTs for Channels A and B independently, one at a time, for much clearer results. Use a BIOS option to disable the other channel, or simply physically remove the DIMM from its slot. This way, bad ODTs from Channel B won't cause instability, muddying up the data while you are trying to find optimal ODTs for Channel A, and vice versa.
 
 
 
