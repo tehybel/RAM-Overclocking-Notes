@@ -14,34 +14,37 @@ Basic Memory Overclocking
 ====================
 
 
-Stability testing
------
-TODO write me
 
 
-Overall process
+Steps from start to finish
 -------------
-The following steps are based on this [comment with an order of which timings to optimize when](https://github.com/integralfx/MemTestHelper/issues/87#issuecomment-2119254780). Make sure you run extensive memory testing (i.e., several hours) between every variable change, so that you will know exactly what's causing issues at any point in time.
+
+The following overall process is based on this [comment with an order of which timings to optimize when](https://github.com/integralfx/MemTestHelper/issues/87#issuecomment-2119254780). Make sure you run extensive memory testing (i.e., several hours) every time you change settings, so that you will know exactly what's causing issues at any point in time. 
 
 First some preliminary steps:
-- turn PowerDown mode off before you start
-- turn Memory Fast Boot off (or set it to Slow Training on MSI) while overclocking
-- core/cache OC: get your processor core- and cache overclocks stable before you start on RAM. Alternatively, leave them until after you're done with RAM overclocking. Mixing them up gets very confusing fast.
+- turn **PowerDown mode off** before you start
+- turn **Memory Fast Boot off** (or set it to Slow Training on MSI) while overclocking
+- revert your processor **core/cache overclock** to safe values while working on memory overclocking[^processorOC]
+- export a **backup of your BIOS settings** to a USB, and keep backing up your updated profile as you make progress and tighten timings
 
-Next, find out which frequency to aim for:
+[^processorOC]: this ensures your core/cache clocks and/or voltage won't be the limiting factor for your memory OC. Sometimes, a processor core/cache overclock that is otherwise stable may need to have its voltage raised a slight bit after applying a RAM OC. To avoid the confusion of this scenario, it is easier to just revert the core and cache to safe, conservative speeds while working on your RAM overclock, then reapplying your OC once your memory is stable, adding a few tens of milivolts to your core if needed at that point.
+
+Next, find out which **frequency** to aim for:
 - raise your primary timings to tCL=20, tRCD=20, tRAS=46 before you raise frequency so that tCL will not limit how high you can go
 - also lock down tRDRD=tWRWR=8; tWRRDs to 16-16; and tRRDs to 6-6 before you proceed. Otherwise I've seen some BIOSes raise these to unacceptable heights to compensate for higher frequencies, making you think such a frequency is OK when it's really not.
 - now see how far up in frequency your memory will go with Command Rate set to 2.
 - then see how far up in frequency your memory will go on CR1. If on Asus, turn on trace centering before testing. If you're on a 4-DIMM board/setup, it's normal that high frequency CR1 is very hard.
 - next, choose CR1 or CR2 depending on your results, prioritizing CR2 if it's 200+ MT/s higher than CR1 as a basic rule of thumb
 
-Having settled on a frequency, we move on to the most important timings:
-- lower tRRDS/L + tFAW as it speeds up memory testing and is largely independent from all the other parameters. 4-4-16 is usually a safe, performant setup for these
-- tCL should go next as many of the following timings depend on it
+Having settled on a frequency, we move on to the **most impactful timings**:
+- lower tRRDS/L + tFAW as it speeds up memory testing and is largely independent from all the other parameters. 4-4-16 is usually a safe, performant choice for these
+- tCL should be tightened next, then kept at that fixed value for the rest of this process[^tCL]
 - find good RTL/IOLs and lock them. These depend on frequency and tCL.
     - if you cannot train good RTLs/IOLs, optimize your ODT RTT skews to fix this
 - lower tRCD/tRP
 - set tRAS=tCL+tRCD+6 or +4. Note that lowering tRAS below this point usually lowers performance, so run extensive benchmarks if you insist on trying this.
+
+[^tCL]: how far you can take many of the following timings will depend on your setting of tCL and would therefore have to be tightened again if you changed tCL. That's why you'll want to find the tightest stable value for tCL at your chosen frequency as one of the first things you do.
 
 At this point you've locked down the main timings, but there's a few more gains to be had - mostly when it comes to loaded latency:
 - lower tWR/tRTP together, keeping tWR at twice the value of tRTP
@@ -56,7 +59,12 @@ You can then stop here if you're satisfied, or try advanced techniques documente
 
 
 
-Recommended tools
+Stability testing
+-----
+TODO write me.
+
+
+Stability testing tools
 -----------------
 
 - [GSAT](https://github.com/stressapptest/stressapptest) is among the best tools for stability testing. You can run it on Windows via WSL.
@@ -64,8 +72,17 @@ Recommended tools
 - [y-cruncher](http://www.numberworld.org/y-cruncher/)
   - The VST, VT3 and FFT stress tests are excellent for testing stability.
   - Y-cruncher's Pi calculation can be timed as a good benchmark. It is sensitive to most memory changes, including loaded latency.
+
+(TODO write about which tools stress what, IMC vs. RAM timings etc.)
+
+Benchmarking tools
+-----------------
+
 - [Intel Memory Latency Checker (MLC.exe)](https://www.intel.com/content/www/us/en/developer/articles/tool/intelr-memory-latency-checker.html) is good for measuring latency and bandwidth
 - PyPrime is a good, latency-sensitive benchmark
+
+Other useful tools
+-----------------
 - Asrock Timing Configurator is a useful tool for showing your current timings. It works on any boards, not just Asrock.
 - On ASUS, the MemTweakIt tool is also very useful; it serves the same purpose as Asrock Timing Configurator, but further allows real-time timing changes.
 
