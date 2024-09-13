@@ -6,7 +6,7 @@ These writings are specifically for **DDR4 B-die on Intel**. YMMV with other mem
 
 I hope to eventually turn this document into a full-fledged guide. For now, feel free to skim through it and take whatever you find useful with you. 
 
-If you found this guide useful, feel free to leave a Github Star to help motivate me write more :-)
+If you found this guide useful, feel free to leave a Github Star ⭐, it really helps motivate me to write more :-)
 
 
 
