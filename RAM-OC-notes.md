@@ -242,9 +242,23 @@ Setting the RTTs in practice
 - Optimal values can vary depending on other variables
   - IO voltage, RAM voltage, frequency, and CAS latency affect optimal ODTs. There are likely more variables too.
 
-Optimal RTTs depend on your memory frequency, but the frequency you can reach also depends on having set at least "good enough" RTTs! This creates a problem when you first want to discover which frequency to take a new set of sticks to. Therefore, you may have to iterate a few times: raise frequency, improve ODT RTTs, then raise frequency a few hundred MHz further, then tweak the ODTs more, etc.
+Optimal RTTs depend on your memory frequency, but the frequency you can reach also depends on having set at least "good enough" RTTs! This creates a catch-22 situation when you want to find out which memory frequency to settle for in your RAM OC. Therefore, you may have to iterate a few times: 
+- raise frequency as far as it will go with ODTs on auto
+- then optimize your ODT RTTs
+- finding better values than your board's auto settings will let you increase frequency further
+- now you can improve your ODT RTTs again at the new frequency
+- repeat until you are unable to raise frequency further
 
-Each of the variables Wr, Nom and Park can only take specific values: 0, 34, 40, 48, 60, 80, 120, 240, 255. So you cannot set, for example, Wr=94. Only Wr=80 or Wr=120. (In MSI BIOS you can fine-tune ODT RTTs, though. This is likely not worth fiddling with until much later in the overclocking process.)
+Each of the variables Wr, Nom and Park can only take specific values: 0, 34, 40, 48, 60, 80, 120, 240, 255. So you cannot set, for example, Wr=94. Only Wr=80 or Wr=120.[^msitune]
+
+[^msitune]: In MSI BIOS you can fine-tune ODT RTTs, though. This is likely not worth fiddling with until much later in the overclocking process.
+
+
+
+
+
+A starting point for ODT RTTs
+-------------
 
 Which values should you use? If you haven't played with RTTs before, try a few of these settings as a starting point; they're in MSI format (wr-nom-park):
 - 80-34-48
@@ -252,11 +266,21 @@ Which values should you use? If you haven't played with RTTs before, try a few o
 - 80-0-34
 - 80-0-60
 
-You can then pick one of Wr, Park, and Nom, and move it up/down by one, then see if your system got more stable. Once you have your starting point, make sure to only tweak one variable at a time or your results will get too confusing.
+To simplify things, keep ODTs the same for channels A and B initially. You can fine-tune them one channel at a time later on.
 
-Other notes on RTTs
+Try them one at a time and see if setting it lets you climb further in frequency while still POSTing. Once you find good candidates, test each Wr-Nom-Park triplet for multiple reboots to ensure the setting consistently trains and POSTs.
+
+To optimize your ODTs past this point, you pick one of Wr, Park, and Nom, and move it up/down by one, then see if your system got more stable.
+
+
+Manually optimizing ODT RTTs
 -------------
-- when your RTLs and IOLs fail to train well on auto, it's usually because your RTTs are wrong (or you set a timing too tight)
+TODO write me
+
+
+Other notes on ODT RTTs
+-------------
+- when your RTLs and IOLs fail to train well on auto, it's usually because your ODT RTTs are wrong (or you set a timing too tight)
 - if your RTLs/IOLs only go very high/bad on one channel, but not the other, it's a strong hint that your RTTs for that channel are wrong!
   - for example, if your auto training often lands on 57-64-7-14, rather than around 57-57-7-7, then the high numbers are on Channel B, and you could try tweaking CHB ODT RTTs a bit up or down to see if that helps.
   - Tweak one of Park/Nom at a time, moving it one step up or down. Then do 3-5 reboots and see if your RTLs and IOLs on Auto become better.
@@ -280,14 +304,25 @@ Other notes on RTTs
 
 
 
-Approach for optimizing each variable
+Other tips for data collection: 
 ----------------------
+
+- you will need to temporarily cause instability
+    - e.g. by pulling down VDIMM/VCCSA a bit until you get errors
+    - you can also deliberately over-tighten timings as a way to introduce errors
+- collect error rates over time
 - use GSAT; anything else I tried gave inconsistent results and muddy data
-- you will need to temporarily cause instability. The means for doing this is crucial.
+    - I've tried TM5, Y-cruncher Pi, VST, VT3, FFT, N64, Linpack, memtest86, memtestpro
+    - no other tool gave as consistent and high error rates as GSAT
+- collect data across multiple boots for each setting
+    - otherwise training variance will make you believe you've found a better setting, but it's just training variance
+- you want as high error rates as possible while comparing settings, as this gives statistical significance sooner!
+    - you do need to keep error rates low enough to avoid freezes, however
 - always test inter-run variance before optimizing!
 - TODO document this.
 - custom OS installation that runs a test, saves data to storage, then auto reboots -- this is great for collecting data!
-- On ASUS, disable Memory Scrambler while optimizing, then re-enable it once you want stability. Otherwise errors become inconsistent and it is hard to spot the patterns in your collected data
+- On ASUS, disable Memory Scrambler while optimizing, then re-enable it once you want stability.
+    - Otherwise errors become inconsistent and it is hard to spot the patterns in your collected data
 
 
 
