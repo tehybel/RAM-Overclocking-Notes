@@ -89,9 +89,27 @@ Other useful tools
 
 
 
+People who give useful advice
+-------------------------------
+
+Rather than reading _everything you can_ on RAM OC, I've found it **far** more effective to keep a small, curated list of people who have gotten strong results. Read their advice and ignore the rest. 
+
+Here's my own list of people whose advice I've had success following. In no particular order:
+- [OLDFATSHEEP](https://www.overclock.net/members/oldfatsheep.631030/)
+- [7empe](https://www.overclock.net/members/7empe.641121/)
+- Falkentyne [ocn](https://www.overclock.net/members/falkentyne.54143/), [reddit](https://www.reddit.com/user/falkentyne)
+- [Ichirou](https://www.overclock.net/members/ichirou.258305/)
+- [PhoenixMDA](https://www.google.com/search?q=site%3Aoverclock.net+%22PhoenixMDA%22)
+- [capn223](https://www.reddit.com/user/capn233)
+- [Noreng](https://www.reddit.com/user/Noreng)
 
 
-More advanced topics
+
+
+
+
+
+Intermediate RAM OC topics
 ====================
 
 
@@ -227,7 +245,7 @@ Background info on ODT RTTs
 [^samsung]: https://download.semiconductor.samsung.com/resources/device-operation-timing-diagram/DDR4_Device_Operations_Rev11_Oct_14-0.pdf
 
 
-Setting the RTTs in practice
+Setting ODT RTTs in practice
 -------------
 
 - Optimal values can vary depending on other variables
@@ -427,7 +445,12 @@ Other notes on ODT RTTs
 
 
 
-Other tips for data collection: 
+
+Advanced RAM OC topics
+====================
+
+
+Tips for data collection: 
 ----------------------
 
 - you will need to temporarily cause instability
@@ -449,13 +472,19 @@ Other tips for data collection:
 
 
 
-Misc findings
+Misc other findings
 -----------
 - ODT Write Duration and ODT Write Delay are independent of each other
   - This means you can optimize one of them first while the other is on auto, then lock your found value and search for the remaining part of the pair. This will discover the optimal values; there is no need to check every pair combined.
 - The MSI Memory Try It! feature changes various settings behind the scenes, for example enabling or disabling some training algorithms that are set to Auto. Therefore it's worth testing different values of this feature, even if you override all the timings it sets for you.
 
 
+Misc parameters worth tweaking
+--------------------
+- Trace Centering
+- Early/Late Command Training
+- DllBwEn
+- TODO add more.
 
 
 
@@ -476,7 +505,7 @@ The first algorithms up to around Jedec Write Leveling are usually required to b
 The "Early" versions of trainings are linked with the normal, non-early versions. I believe only one of the normal/early variants needs to run. For example, on MSI, enabling "Early Write Time Centering 2D" will implicitly disable "Write Time Centering 2D", assuming it is on Auto -- and vice versa. 
 
 I recommend testing each one of these, as I have had stability gains with them, but not many of the others:
-- Early/Late Command Training (see above)
+- Early/Late Command Training: (see above)
 - Round Trip Latency: **Enabled**
 - Turn Around Timing Training: **Disabled**
 - Memory Test Training: **Disabled**
@@ -496,15 +525,16 @@ Note that changing DllBwEn requires a cold reboot for the change to be applied a
 
 
 
-
-A word of caution when learning RAM OC
+Picking sources carefully when learning RAM OC
 ----------
+
+Warning, this section's a bit of a rant.
 
 Usually when I google any other software/hardware topic looking for advice, I'll get mostly correct information. Even a closely related topic, CPU overclocking, has plenty of good info readily available.
 
 But for some reason, when it comes to RAM OC, the water's muddy. It's way muddier than you might think at first.
 
-I don't think anyone's out to mislead or cause confusion. People share information with an intention to be helpful. It's just that "the truth" within RAM OC can vary greatly from system to system, and is further obscured by statistical noise and variance across reboots.
+I doubt anyone's out to mislead or cause confusion; people share information with an intention to be helpful. It's just that "the truth" within RAM OC can vary greatly from system to system, and is further obscured by statistical noise and variance across reboots.
 
 To be fully certain about any claim that 'this setting helps with stability' is **really hard**. You need to gather data via long stability tests across multiple reboots. Then, analyze the collected data to ensure statistical significance when it comes to the error rate being different after your tweak. Only then do you have a reasonable level of certainty that your conclusion is correct -- at least for your particular system, with that combination of components, at the given voltages and temperatures. 
 
@@ -514,22 +544,9 @@ Most people casually making claims on the internet have _not_ gone through this 
 
 [^overconfident]: A small rant: be especially wary if someone thinks they can tell you exactly which voltages and sub-timings you need to set, just by applying their "universal formulas". For some reason, this is something I often see coming from the Russian community? In reality, there's few universal rules when it comes to memory overclocking. Formulas for e.g. tRAS as a function of tCL and tRCD can be a fine **starting point**, but optimal values will depend on your board manufacturer, IMC, Intel vs. AMD, chipset generation, cooling situation, voltages, and a whole lot of other factors. The only way you'll know your true optimum is by doing the benchmarking and stability testing yourself.
 
-
 So rather than reading _everything you can_ on RAM OC, I've found it **far** more effective to keep a small, curated list of people who have gotten strong results. Read their advice and ignore the rest. 
 
-
-People who give useful advice
--------------------------------
-
-Here's my own list of people whose advice I've had success following. In no particular order:
-- [OLDFATSHEEP](https://www.overclock.net/members/oldfatsheep.631030/)
-- [7empe](https://www.overclock.net/members/7empe.641121/)
-- Falkentyne [ocn](https://www.overclock.net/members/falkentyne.54143/), [reddit](https://www.reddit.com/user/falkentyne)
-- [Ichirou](https://www.overclock.net/members/ichirou.258305/)
-- [PhoenixMDA](https://www.google.com/search?q=site%3Aoverclock.net+%22PhoenixMDA%22)
-- [capn223](https://www.reddit.com/user/capn233)
-- [Noreng](https://www.reddit.com/user/Noreng)
-
+I've provided a list of people who give useful advice near the top of this guide.
 
 
 
