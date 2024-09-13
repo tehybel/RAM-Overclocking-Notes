@@ -208,18 +208,18 @@ Additionally, RTLs and IOLs, when left on auto, can sometimes provide a hint abo
 ODT RTTs
 -------------
 
-- Setting ODT RTTs (Wr, Nom, Park) correctly will *massively* impact how far you can take your OC
-- Many cheap boards can actually OC surprisingly well once you set RTTs, they just set bad RTTs on Auto!
-- RTTs can be found under the Skews menu in the Asus BIOS, and are also known as ODT Skews.
-
-
 RTTs (Termination Resistances) are the values for Nom, Wr, Park that can be manually set in your BIOS for each memory channel. They strongly affect stability at higher frequencies. Setting correct values for them is crucial in order for your DIMM's ODT (On-Die Termination) to work well. This ensures signal stability even at high frequencies, letting you OC your sticks much further.
 
-Recommended reading for setting RTTs: [overclock.net/threads/the-importance-of-skew-control-for-memory-overclocking.1774358/](The importance of skew control for memory overclocking)
+- Setting ODT RTTs (Wr, Nom, Park) correctly will *massively* impact how far you can take your OC
+- Many cheap boards can actually OC surprisingly well once you set ODT RTTs, they just set bad values on Auto!
+- ODT RTTs can be found under the Skews menu in the Asus BIOS, and are also known as ODT Skews.
 
-Here's a quote by munternet, the author of that thread:
 
-> I can see now that it would be easy to think you were unlucky in the silicon lottery or your IMC isn't any good just because your skews aren't set correctly
+Here's a very [clear explanation of RTTs](https://www.overclock.net/posts/28906340/) by @7empe, lightly edited for clarity:
+
+> RTTs refer to the resistance of the on-die termination points. [They are needed because] high frequency signals are unfortunately prone to reflections that happen when a signal hits a point of different resistance on its path [i.e., when the signal jumps from one material to another]. More reflections = more signal distortions = more difficult to stabilize the memory OC. RTTs are quite motherboard specific. Also IMC quality and RAM frequency matters due to the above. RTTs [are not] timings, therefore [lower values] are not better. [What's best] is what gives you constant stability for a given RAM OC. For me 80-40-48 works the best (WR-NOM-PARK) but it does it mean that this will work for you. However this seems to be a good starting point for both 4-dimm and 2-dimm motherboards.
+
+
 
 
 Background info on ODT RTTs
@@ -229,20 +229,19 @@ Background info on ODT RTTs
 - Nom is short for Nominal[^polarfire]
 - Wr is short for Write; it is the termination resistance used during a write operation
 - Park is a default, or "parked" value when nothing else is going on[^samsung]
+- see also https://en.wikipedia.org/wiki/On-die_termination
 
 [^polarfire]: https://microchip.my.site.com/s/article/Use-of-the--ODT-Rtt-Nominal-Value--and--Dynamic-ODT--Rtt-WR---parameters-in-the-PolarFire-DDR-memory-controller
 [^samsung]: https://download.semiconductor.samsung.com/resources/device-operation-timing-diagram/DDR4_Device_Operations_Rev11_Oct_14-0.pdf
 
-See also:
-- https://en.wikipedia.org/wiki/On-die_termination
-
 
 Setting the RTTs in practice
 -------------
+
 - Optimal values can vary depending on other variables
   - IO voltage, RAM voltage, frequency, and CAS latency affect optimal ODTs. There are likely more variables too.
 
-Optimal RTTs depend on your memory frequency, but the frequency you can reach also depends on having set at least "good enough" RTTs! This creates a catch-22 situation when you want to find out which memory frequency to settle for in your RAM OC. Therefore, you may have to iterate a few times: 
+Optimal RTTs depend on your memory frequency, but the max frequency you can reach also depends on having set at least "good enough" RTTs! This creates a catch-22 situation when you want to find out which memory frequency to settle for in your RAM OC. Therefore, you may have to iterate a few times: 
 - raise frequency as far as it will go with ODTs on auto
 - then optimize your ODT RTTs
 - finding better values than your board's auto settings will let you increase frequency further
@@ -252,9 +251,6 @@ Optimal RTTs depend on your memory frequency, but the frequency you can reach al
 Each of the variables Wr, Nom and Park can only take specific values: 0, 34, 40, 48, 60, 80, 120, 240, 255. So you cannot set, for example, Wr=94. Only Wr=80 or Wr=120.[^msitune]
 
 [^msitune]: In MSI BIOS you can fine-tune ODT RTTs, though. This is likely not worth fiddling with until much later in the overclocking process.
-
-
-
 
 
 A starting point for ODT RTTs
@@ -268,14 +264,116 @@ Which values should you use? If you haven't played with RTTs before, try a few o
 
 To simplify things, keep ODTs the same for channels A and B initially. You can fine-tune them one channel at a time later on.
 
-Try them one at a time and see if setting it lets you climb further in frequency while still POSTing. Once you find good candidates, test each Wr-Nom-Park triplet for multiple reboots to ensure the setting consistently trains and POSTs.
+Try the above suggestions one at a time and see if setting that Wr-Nom-Park triplet lets you POST at a higher frequency than on Auto. Once you find good candidate Wr-Nom-Park values, test each triplet for multiple reboots to ensure the setting consistently trains and POSTs. 
 
-To optimize your ODTs past this point, you pick one of Wr, Park, and Nom, and move it up/down by one, then see if your system got more stable.
+This gives you a starting point with fixed, manually set values. Past this point you can then pick one of Wr, Park, and Nom, and move it up/down by one, then see if your system got more stable.
 
 
 Manually optimizing ODT RTTs
 -------------
-TODO write me
+
+I used Google Translate from a .ru forum to find this method from anta777:
+
+
+    I am posting my method for selecting RTT.
+
+    We set the voltage and primary timings according to the xmp of our memory, RRDS=4,RRDL=6,FAW=16, monitor the CWL (with even CL=CWL, with odd CL-1 (better) or CL+1 (worse), there are boards who love odd CWL.
+
+    Or we take the already selected voltage and frequency with our stable timings.
+
+    Then we test with GSAT for 3 minutes, we do all this on the resistances that our motherboard has installed.
+
+    If there are no errors, then lower the voltage to the memory by 10 mV until errors appear in the GSAT test
+
+    [Once we get] errors, we begin to select the best resistances.
+  
+
+    There are 3 types of resistances for DDR4 memory sticks:
+
+    RTT Wr
+    RTT Park
+    RTT Nom
+
+    In the BIOS of Asus boards they are in this order, for MSI they are in a different order: Wr, Nom, Park.
+
+    RTT Wr according to Jedec can be only 240/120/80.
+
+    RTT Park and RTT Nom - 240/120/80/48/40/34/0.
+
+    0 is not advisable to use for high frequencies, since this reduces the possibility of stable operation of memory sticks.
+
+    We take into account that Rtt Wr>=Rtt Park>=Rtt Nom.
+
+    We check all possible options, writing down the number of errors found in GSAT for each option.
+
+    We start searching with 80/60/60.
+
+    There are 14 options in total, and without 0 there are even fewer (10 options).
+
+    Need to test:
+
+    80/60/60
+    80/60/48
+    80/60/40
+    80/60/34
+    80/60/0
+    80/48/48
+    80/48/40
+    80/48/34
+    80/48/0
+    80/ 40/40
+    80/40/34
+    80/40/0
+    80/34/34
+    80/34/0
+
+    Sometimes you need to start with 120/80/80.
+
+    In this way we find the option with the least number of errors.
+
+    If several options give 0 or the same number of errors, then we lower the voltage by another 5 mV and test these options. If you don’t find a difference, then it’s better to take the option with lower resistance.
+
+    After finding the best option, set these resistances in the BIOS, then look for the minimum voltage at which there will be no errors in GSAT, raising 10 mV each.
+  
+    When we found it, we can immediately safely raise it by another 10 mV and begin testing in Windows using testmem5 with a universal config.
+
+
+In my experience, you **cannot** safely assume that `Rtt Wr >= Rtt Park >= Rtt Nom` if you want to find truly optimal values. I have seen too many counter-examples at this point, where having `Park < Nom` results in higher stability.
+
+You should also check each setting for 3+ reboots to ensure it trains consistently, at least once you have narrowed down your options.
+
+
+Make sure to also read [overclock.net/threads/the-importance-of-skew-control-for-memory-overclocking.1774358/](The importance of skew control for memory overclocking). In that thread, @munternet from overclock.net explains how he found optimal ODT RTT values:
+
+    I spent the day testing different settings to see just how much difference the skew settings make and it seems it won't even boot with many of them
+    
+    I can see now that it would be easy to think you were unlucky in the silicon lottery or your IMC isn't any good just because your skews aren't set correctly
+    
+    The 2 tests I'm using for stability are:
+    
+        TestMem5 extreme@anta777
+        GSAT
+    
+    I only did 2 minutes each initially as there was a lot of testing to do and the aim was to narrow down the possible final contestants
+    
+    So my first step was to find a setting I knew to be not quite stable
+    5.2/49 1.32v LLC7
+    4533-18-19-19-36
+    1.45vdimm
+    1.35vccio
+    1.35vccsa
+
+    Next it was just a matter of going through all the possible combinations that booted and the ones around them and running the tests
+    [In the image below] are the results.
+
+    These results laid out in this manner make it pretty clear what my optimum options are for this hardware
+    You can clearly see that GSAT has a much smaller range of acceptance.
+
+    You may find that you can boot a much higher ram overclock once you have done this.
+
+![Skew Control Results](./SkewControl.jpg)
+
+
 
 
 Other notes on ODT RTTs
