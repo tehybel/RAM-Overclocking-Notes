@@ -36,7 +36,7 @@ Next, find out which frequency to aim for:
 - next, choose CR1 or CR2 depending on your results, prioritizing CR2 if it's 200+ MT/s higher than CR1 as a basic rule of thumb
 
 Having settled on a frequency, we move on to the most important timings:
-- lower tRRDS/L + tFAW as it speeds up memory testing and is largely independent from all the other parameters. 4-6-16 is usually a safe, performant setup for these
+- lower tRRDS/L + tFAW as it speeds up memory testing and is largely independent from all the other parameters. 4-4-16 is usually a safe, performant setup for these
 - tCL should go next as many of the following timings depend on it
 - find good RTL/IOLs and lock them. These depend on frequency and tCL.
     - if you cannot train good RTLs/IOLs, optimize your ODT RTT skews to fix this
