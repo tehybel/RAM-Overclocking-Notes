@@ -92,7 +92,7 @@ Other useful tools
 People who give useful advice
 -------------------------------
 
-Rather than reading _everything you can_ on RAM OC, I've found it **far** more effective to keep a small, curated list of people who have gotten strong results. Read their advice and ignore the rest. 
+I've found it most effective to keep a small, curated list of people who have gotten strong results. Read their advice and ignore the rest. 
 
 Here's my own list of people whose advice I've had success following. In no particular order:
 - [OLDFATSHEEP](https://www.overclock.net/members/oldfatsheep.631030/)
