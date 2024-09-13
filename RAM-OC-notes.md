@@ -1,12 +1,12 @@
 
 
-For now, this document is a mix of findings, tips, notes, and advice for overclocking memory - specifically DDR4 B-die memory on Intel platforms.
+For now, this document is a mix of findings, tips, notes, and advice for overclocking memory.
 
-I hope to eventually turn it into a full-fledged guide. 
+These writings are specifically for **DDR4 B-die on Intel**. YMMV with other memory types.
 
-Until then, sections may be reordered and I'm still adding information, but feel free to skim through it and take whatever you find useful with you. 
+I hope to eventually turn this document into a full-fledged guide. For now, feel free to skim through it and take whatever you find useful with you. 
 
-If you found this useful, feel free to leave a Github Star to help motivate me :-)
+If you found this guide useful, feel free to leave a Github Star to help motivate me write more :-)
 
 
 
@@ -128,7 +128,7 @@ Cmd Normalization
 </code>
 </details>
 
-After booting, if parameters were found that led to your RAM being stable and error-free, we say that your memory "trained well". Otherwise we call it a "bad training".
+Some terminology: when POSTing and going through memory training, if the motherboard manages to choose parameters that have your RAM stable and error-free, we say that your memory "trained well". Otherwise we call it a "bad training".
 
 A common situation in RAM overclocking is that one boot, your system is rock solid and stable.. and then the next boot you get tons of memory errors and crashes. 
 
@@ -143,17 +143,17 @@ Even with fast boot enabled, if your system crashes, it will re-train memory on 
 
 Memory training and variance across reboots
 -----------------------------------
-Imagine that you want to compare two different values for a setting to determine which is more stable. For example, you may ask yourself, "is setting an ODT RTT of 80-0-34 or 80-0-48 better on my system? Which one should I use for best results?"
+Understanding memory training can help explain how a system can be stable one day, while crashing and BSOD'ing the next day.
 
-Let's say you try to boot up both settings, one at a time, and run a stability test on each boot. You find that on the first boot, having set 80-0-34, the test fails after 20 minutes. On the second boot, with 80-0-48, it fails after 8 minutes. You may then conclude, "80-0-34 is better on my system than 80-0-48, because the stability test ran for 20 minutes -- far more than only 8 minutes." But then, the next day after a fresh boot, your system has destabilized and you're quickly getting memory errors!? What's going on?
+On each boot, your motherboard trains its memory anew.[^memtrainanew] This involves running a long list of algorithms to determine values for various parameters, resistances, and hidden timings, all of which can affect memory stability. As you increase your overclock, it gets more difficult for this memory training to consistently succeed. Additionally, the training results vary depending on DIMM temperature, voltages, and a whole host of other, essentially random factors. 
 
-The issue is that on each boot, your board trains its memory anew. This involves running a long list of algorithms to determine values for various hidden parameters and timings, many of which can hurt stability if the training goes wrong. As you increase your overclock, it gets more difficult for this memory training to consistently succeed. Additionally, the training results vary depending on DIMM temperature and a whole host of other, essentially random factors. 
+If you want to be sure that your overclock is stable, you will need to do multiple reboots, and run stability tests each time. In general, the hardest test to 'pass' is where you fully power down your PC and turn off your PSU, then hold down the power button for 10-30 seconds. Then power up your system as usual. In this scenario, memory training is most likely to go wrong, revealing instabilities. We call this a 'cold boot with PSU off'.
 
-Returning to our "80-0-34 vs 80-0-48" example, the problem came from drawing a conclusion based on only two data points. If you want to be sure which setting is best, you will need to do multiple reboots, run stability test(s) each time, and gather data in a spreadsheet. 
+In my experience, this trick is **very fast** at finding instabilities in your memory overclock. In fact, a few cold boots with the PSU off, running just a few minutes of memory tests in each boot, is way more likely to find instability in your OC compared to running tests for hours and hours, all on a single boot.
 
-Analyzing your data, then, is no longer a simple comparison between two numbers - it becomes a matter of statistics. Since data needs statistical analysis, there are no longer any clear, black-and-white answers. All you get is a probability that one value is better than the other.
+The idea that your motherboard trains memory on each boot also means that some boots can have higher error rates than others. That is, there can be a big variance in stability across trainings, even without any settings changing. This is crucial to know about for some of the more advanced topics, like finding optimal voltages and ODT RTTs for your setup.
 
-
+[^memtrainanew]: At least, memory is trained every boot if you have 'Memory Fast Boot' disabled in the BIOS. Otherwise, the setting helps your PC boot faster by reusing its old memory training values on new boots. You'll want to turn this setting **off** while overclocking to get a clearer picture of the current state of your system.
 
 
 Online sources of information
