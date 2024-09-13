@@ -156,31 +156,6 @@ The idea that your motherboard trains memory on each boot also means that some b
 [^memtrainanew]: At least, memory is trained every boot if you have 'Memory Fast Boot' disabled in the BIOS. Otherwise, the setting helps your PC boot faster by reusing its old memory training values on new boots. You'll want to turn this setting **off** while overclocking to get a clearer picture of the current state of your system.
 
 
-Online sources of information
-----------
-
-Due to the variability of memory training across boots, it is easy to draw the wrong conclusions. To be fully certain, you need to gather data via long stability tests across multiple reboots. Only then do you have a reasonable level of certainty that your conclusion is correct -- at least for your particular system.
-
-For this reason, high-level RAM overclocking demands a level of rigor and meticulousness that most people frankly just don't have the patience for. 
-
-Therefore, there is **a lot** of conflicting and just plain **wrong** information about RAM overclocking online. I doubt most people set out to mislead or cause confusion; people share information with an intention to be helpful. It's just that finding the truth requires so much careful effort, and it's so easy to misstep.
-
-When I started learning, I did not realize any of this. I would collect and read through all the material I could find online. I assumed everyone knew more than me. However, it turned out that a lot of it was wrong, or at least did not hold true on my personal system. It made me feel confused and uncertain, cost me a lot of time, and it held back my progress.
-
-Therefore I would strongly recommend keeping a small list of people who definitely know what they are doing, and ignoring advice from anyone else.[^2]
-
-As it can be difficult to tell who's posting BS when you're new to RAM OC, I've provided my own list of people whose advice I've had success following.[^1] In no particular order:
-- OLDFATSHEEP
-- 7empe
-- Falkentyne
-- Ichirou
-- PhoenixMDA
-- Noreng
-
-[^1]: One trick for deciding who to listen to online: check that their claims are backed up by results. Find a screenshot of their best memory overclock. If they have achieved outstanding results, their words deserve attention.
-
-[^2]: Be especially wary with those who sound overly confident, and those who lay out their knowledge as "universal rules". Rules often depend on your board manufacturer, IMC, Intel vs. AMD, chipset generation, cooling situation, voltages, and a whole lot of other factors.
-
 
 RTLs and IOLs
 -------
@@ -499,6 +474,45 @@ On MSI z490, I found that the Auto setting was consistently far more stable than
 On Asus, I've found that this setting is worth optimizing for small stability gains. For me, the ideal value could be found in the interval between 0 and 2. This value outperformed the 'Auto' setting, unlike on MSI.
 
 The optimal value likely depends on DRAM frequency.
+
+Note that changing DllBwEn requires a cold reboot for the change to be applied at all! If it seems like all the values you try for it just give similar results, this is likely the issue.
+
+
+
+
+A word of caution when learning RAM OC
+----------
+
+Usually when I google any other software/hardware topic looking for advice, I'll get mostly correct information. Even a closely related topic, CPU overclocking, has plenty of good info readily available.
+
+But for some reason, when it comes to RAM OC, the water's muddy. It's way muddier than you might think at first.
+
+I don't think anyone's out to mislead or cause confusion. People share information with an intention to be helpful. It's just that "the truth" within RAM OC can vary greatly from system to system, and is further obscured by statistical noise and variance across reboots.
+
+To be fully certain about any claim that 'this setting helps with stability' is **really hard**. You need to gather data via long stability tests across multiple reboots. Then, analyze the collected data to ensure statistical significance when it comes to the error rate being different after your tweak. Only then do you have a reasonable level of certainty that your conclusion is correct -- at least for your particular system, with that combination of components, at the given voltages and temperatures. 
+
+While this level of rigor may be excessive for most other topics, it seems necessary to achieve exceptional results in memory overclocking.
+
+Most people casually making claims on the internet have _not_ gone through this level of rigorous data collection and analysis. Therefore, take all claims you read online about RAM overclocking with a huge grain of salt.[^overconfident]
+
+[^overconfident]: A small rant: be especially wary if someone thinks they can tell you exactly which voltages and sub-timings you need to set, just by applying their "universal formulas". For some reason, this is something I often see coming from the Russian community? In reality, there's few universal rules when it comes to memory overclocking. Formulas for e.g. tRAS as a function of tCL and tRCD can be a fine **starting point**, but optimal values will depend on your board manufacturer, IMC, Intel vs. AMD, chipset generation, cooling situation, voltages, and a whole lot of other factors. The only way you'll know your true optimum is by doing the benchmarking and stability testing yourself.
+
+
+So rather than reading _everything you can_ on RAM OC, I've found it **far** more effective to keep a small, curated list of people who have gotten strong results. Read their advice and ignore the rest. 
+
+
+People who give useful advice
+-------------------------------
+
+Here's my own list of people whose advice I've had success following. In no particular order:
+- [OLDFATSHEEP](https://www.overclock.net/members/oldfatsheep.631030/)
+- [7empe](https://www.overclock.net/members/7empe.641121/)
+- Falkentyne [ocn](https://www.overclock.net/members/falkentyne.54143/), [reddit](https://www.reddit.com/user/falkentyne)
+- [Ichirou](https://www.overclock.net/members/ichirou.258305/)
+- [PhoenixMDA](https://www.google.com/search?q=site%3Aoverclock.net+%22PhoenixMDA%22)
+- [capn223](https://www.reddit.com/user/capn233)
+- [Noreng](https://www.reddit.com/user/Noreng)
+
 
 
 
